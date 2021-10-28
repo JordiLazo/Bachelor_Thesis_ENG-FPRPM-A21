@@ -10,3 +10,22 @@ Handwritten absence of students is a laborious and tedious task that teachers do
 ## Problem statement
 
 With the move to the new facility, VIA University College in Horsens is experiencing crucial problems with room resources balancing the limited number of available rooms with the high number of students and lectures. By now, room schedules can be planned one week in advance, at the most. To allow a valid and precise forward planning for a longer period (e.g., a semester) it is necessary to get data about the real room occupation. The question “How to automatically register students’ attendance in lectures in order to optimize the utilization of room resources?” arises. Based on this question a list of software-engineering and business-related sub-problems are generated.
+
+![Problem statement](images/image_problem_statement.png)
+
+## Definition of purpose
+The project serves the purpose to develop a tool that allows the VIA Horsens to improve its future use of room capacities by collecting data of real-time occupation of rooms by students during regular lectures. The data also can be used for future improvements of lectures quality and students’ academic performance.
+
+## Requirements
+In the document named **requirements.txt** you will find the requirements to execute the web application.
+
+## Supervisors
+The teachers who have guided this project are:
+- Poul Væggemose (POV)  
+- Lene Overgaard Sørensen (LEOS)
+
+## Authors
+This project have been developed by:
+- [Anne Schneider](https://github.com/Nikaleya)
+- [Nils Franke](https://github.com/Nfrankjy)
+- [Jordi Lazo] (https://github.com/JordiLazo)
