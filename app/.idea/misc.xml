@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/jordi/Desktop/android_app/login/app/src/main/res/layout/activity_create_account.xml" value="0.20520833333333333" />
-        <entry key="..\:/Users/jordi/Desktop/android_app/login/app/src/main/res/layout/activity_main.xml" value="0.35260416666666666" />
+        <entry key="..\:/Users/jordi/Desktop/MyApplication/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.370703125" />
+        <entry key="..\:/Users/jordi/Desktop/MyApplication/app/src/main/res/layout-w936dp/activity_login.xml" value="0.275" />
+        <entry key="..\:/Users/jordi/Desktop/MyApplication/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/jordi/Desktop/MyApplication/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/jordi/Desktop/MyApplication/app/src/main/res/layout/content_main.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>
