@@ -99,9 +99,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot s: snapshot.getChildren()){
+                    String currentUser = CurrentStudent.getCurrentViaID();
                     studentOnline = s.getValue(Student.class);
-                    if(studentOnline.getStatus().equals("online")){
-                        databaseReference.child("students").child(studentOnline.getViaID()).child("status").setValue("offline");
+                    if(currentUser.equals(studentOnline.getViaID())){
+                        databaseReference.child("students").child(currentUser).child("status").setValue("offline");
                     }
                 }
             }

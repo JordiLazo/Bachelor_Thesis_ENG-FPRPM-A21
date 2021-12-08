@@ -39,13 +39,11 @@ public class qrscanner extends AppCompatActivity implements ZXingScannerView.Res
     private ZXingScannerView scannerView;
     private DatabaseReference databaseReference;
     private Map<String, String> map;
-    private ArrayList<String> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.map = new HashMap<String, String>();
-        this.arrayList = new ArrayList<String>();
         this.scannerView = new ZXingScannerView(this);
         this.databaseReference = FirebaseDatabase.getInstance("https://eng-fprpm-a21-82b48-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
         setContentView(scannerView);
