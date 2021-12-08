@@ -3,23 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_scanqr">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.example.myapplication.ui.home.HomeFragment"
+        android:id="@+id/nav_scanqr"
+        android:name="com.example.myapplication.ui.scanqr.ScanqrFragment"
         android:label="@string/menu_0"
-        tools:layout="@layout/fragment_home" />
-
+        tools:layout="@layout/fragment_scanqr" />
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.myapplication.ui.gallery.GalleryFragment"
+        android:id="@+id/nav_latestattendance"
+        android:name="com.example.myapplication.ui.latestattendance.LatestAttendanceFragment"
         android:label="@string/menu_1"
-        tools:layout="@layout/fragment_gallery" />
-
+        tools:layout="@layout/fragment_latestattendance" />
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.myapplication.ui.slideshow.SlideshowFragment"
+        android:id="@+id/nav_history"
+        android:name="com.example.myapplication.ui.history.HistoryFragment"
         android:label="@string/menu_2"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_history" />
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.example.myapplication.ui.settings.SettingsFragment"
+        android:label="@string/menu_3"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

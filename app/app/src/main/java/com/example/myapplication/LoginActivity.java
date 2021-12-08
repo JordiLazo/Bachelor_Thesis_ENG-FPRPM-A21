@@ -10,10 +10,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.myapplication.model.CurrentStudent;
+import com.example.myapplication.model.Student;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
@@ -35,10 +40,10 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                String user_viaid = viaID.getText().toString();
-                String user_password = password.getText().toString();
+                String user_viaid = viaID.getText().toString().trim();
+                String user_password = password.getText().toString().trim();
                 if(user_password.isEmpty() || user_viaid.isEmpty()){
-                    Toast.makeText(getApplication(), "Introduce names", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(), "Introduce credentials", Toast.LENGTH_SHORT).show();
                 }else{
                     dataBase.child("students").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -47,10 +52,10 @@ public class LoginActivity extends AppCompatActivity {
                                 String getpassword = snapshot.child(user_viaid).child("password").getValue(String.class);
                                 if (getpassword.equals(user_password)) {
                                     Toast.makeText(getApplication(), "Login successfully\n", Toast.LENGTH_SHORT).show();
-                                    //navController.navigate(R.id.action_logIn_to_logOut);
                                     startActivity(new Intent(getApplication(), MainActivity.class));
-                                }
-                                else {
+                                    CurrentStudent.setCurrentViaID(user_viaid);
+                                    dataBase.child("students").child(user_viaid).child("status").setValue("online");
+                                } else {
                                     Toast.makeText(getApplication(), "Incorrect password", Toast.LENGTH_SHORT).show();
                                 }
                             }

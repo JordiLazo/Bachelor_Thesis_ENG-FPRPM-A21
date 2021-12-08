@@ -2,49 +2,57 @@
     {
         "viaID": 313313,
         "password": "jordilazo",
-        "courses": ["IT-SDJ2-A21","IT-IDX1-A21","ENG-SPRPM-A21","ENG-FPRPM-A21"]
+        "courses": ["IT-SDJ2-A21","IT-IDX1-A21","ENG-SPRPM-A21","ENG-FPRPM-A21"],
+        "status": "offline"
     },
 
     {
         "viaID": 679119,
         "password": "ostracize",
-        "courses": ["IT-ERP1","IT-PCL1","IT-CMC1","IT-SWE1"]
+        "courses": ["IT-ERP1","IT-PCL1","IT-CMC1","IT-SWE1"],
+        "status": "offline"
     },
 
     {
         "viaID": 862461,
         "password": "plead",
-        "courses": ["IT-WEE1","IT-PME1","IT-DAI1","IT-BUI1"]
+        "courses": ["IT-WEE1","IT-PME1","IT-DAI1","IT-BUI1"],
+        "status": "offline"
     },
 
     {
         "viaID": 610576,
         "password": "battlefield",
-        "courses": ["IT-NSQ1","IT-MAL1","IT-AND1","IT-SWA1"]
+        "courses": ["IT-NSQ1","IT-MAL1","IT-AND1","IT-SWA1"],
+        "status": "offline"
     },
 
     {
         "viaID": 714730,
         "password": "battlefield",
-        "courses": ["IT-RWD1","IT-IDX1","IT-GMD1","IT-DIM1"]
+        "courses": ["IT-RWD1","IT-IDX1","IT-GMD1","IT-DIM1"],
+        "status": "offline"
     },
 
     {
         "viaID": 354075,
         "password": "item",
-        "courses": ["IT-MIX1","IT-DNP1","IT-RTP1","IT-BEL1"]
+        "courses": ["IT-MIX1","IT-DNP1","IT-RTP1","IT-BEL1"],
+        "status": "offline"
     },
 
     {
         "viaID": 900931,
         "password": "item",
-        "courses": ["IT-EOS1","IT-HWP1","IT-LWA1","IT-SPRPM1"]
+        "courses": ["IT-EOS1","IT-HWP1","IT-LWA1","IT-SPRPM1"],
+        "status": "offline"
     },
 
     {
         "viaID": 784315,
         "password": "item",
-        "courses": ["IT-FPR2","IT-SPR2","GBE-ENGUP-1","GBE-ENG-INT"]
+        "courses": ["IT-FPR2","IT-SPR2","GBE-ENGUP-1","GBE-ENG-INT"],
+        "status": "offline"
     }
             ],
 
@@ -75,14 +83,16 @@
         "viaID": 366556,
         "password":"dividend",
         "courseID":"IT-SDJ2-A21",
-        "classroomID":"C05.07"
+        "classroomID":"C05.07",
+        "status": "offline"
     },
 
     {
         "viaID": 746664,
         "password":"dividend",
         "courseID":"GBE-ENGUP-1",
-        "classroomID":"B03.11"
+        "classroomID":"B03.11",
+        "status": "offline"
     }
             ],
 "courses":[
@@ -126,7 +136,8 @@
         "viaID": 100000,
         "password":"threshold",
         "courseID":"IT-SDJ2-A21",
-        "classroomID":"C05.07"
+        "classroomID":"C05.07",
+        "status": "offline"
     }
             ]
 }
