@@ -11,10 +11,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".qr.qrscanner"
+            android:name=".student.qr.qrscannerStudent"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".student.MainActivityStudent"
+            android:exported="false" />
+        <activity
+            android:name=".professor.MainActivityProfessor"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"

@@ -10,15 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.myapplication.model.CurrentStudent;
-import com.example.myapplication.model.Student;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.myapplication.professor.MainActivityProfessor;
+import com.example.myapplication.student.MainActivityStudent;
+import com.example.myapplication.student.model.CurrentStudent;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
@@ -26,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button buttonLogIn;
     private EditText viaID, password;
     private DatabaseReference dataBase;
+    private Boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,15 +51,11 @@ public class LoginActivity extends AppCompatActivity {
                                 String getpassword = snapshot.child(user_viaid).child("password").getValue(String.class);
                                 if (getpassword.equals(user_password)) {
                                     Toast.makeText(getApplication(), "Login successfully\n", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(getApplication(), MainActivity.class));
+                                    startActivity(new Intent(getApplication(), MainActivityStudent.class));
                                     CurrentStudent.setCurrentViaID(user_viaid);
                                     dataBase.child("students").child(user_viaid).child("status").setValue("online");
-                                } else {
-                                    Toast.makeText(getApplication(), "Incorrect password", Toast.LENGTH_SHORT).show();
+                                    flag = true;
                                 }
-                            }
-                            else{
-                                Toast.makeText(getApplication(), "Incorrect VIA ID", Toast.LENGTH_SHORT).show();
                             }
                         }
                         @Override
@@ -68,9 +63,48 @@ public class LoginActivity extends AppCompatActivity {
 
                         }
                     });
+                    dataBase.child("professors").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.hasChild(user_viaid)) {
+                                String getpassword = snapshot.child(user_viaid).child("password").getValue(String.class);
+                                if (getpassword.equals(user_password)) {
+                                    Toast.makeText(getApplication(), "Login successfully\n", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getApplication(), MainActivityProfessor.class));
+                                    CurrentStudent.setCurrentViaID(user_viaid);
+                                    dataBase.child("professors").child(user_viaid).child("status").setValue("online");
+                                    flag =true;
+                                }
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                    dataBase.child("scheduleManager").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.hasChild(user_viaid)) {
+                                String getpassword = snapshot.child(user_viaid).child("password").getValue(String.class);
+                                if (getpassword.equals(user_password)) {
+                                    Toast.makeText(getApplication(), "Login successfully\n", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getApplication(), MainActivityStudent.class));
+                                    CurrentStudent.setCurrentViaID(user_viaid);
+                                    dataBase.child("scheduleManager").child(user_viaid).child("status").setValue("online");
+                                    flag = true;
+                                }
+                            }if(!flag) {
+                                Toast.makeText(getApplication(), "Log in failed by NETSCALER AAA", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
                 }
-                viaID.setText("");
-                password.setText("");
+                //viaID.setText("");
+                //password.setText("");
             }
         });
     }
