@@ -19,12 +19,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Map;
+
 public class LatestAttendanceFragment extends Fragment {
 
     private LatestAttendanceViewModel latestAttendanceFragment;
     private FragmentLatestattendanceBinding binding;
-    public static TextView room;
-    public static TextView date;
+    private static TextView room;
+    private static TextView day;
+    private static TextView course;
     private DatabaseReference dataBase;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,21 +37,32 @@ public class LatestAttendanceFragment extends Fragment {
         binding = FragmentLatestattendanceBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        room = root.findViewById(R.id.lastattendanceroom);
-        date = root.findViewById(R.id.lastattendancedate);
+        room = root.findViewById(R.id.room_data);
+        day = root.findViewById(R.id.day_data);
+        course = root.findViewById(R.id.course_data);
 
         dataBase.child("students").child(currentviaID).child("attendance").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot questionSnapshot : snapshot.getChildren()) {
+                    Map<String,String> map = (Map<String, String>) questionSnapshot.getValue();
+                    String course = (String) map.get("course");
+                    String room = (String) map.get("room");
+                    String date = (String) map.get("date");
+                    LatestAttendanceFragment.room.setText(room);
+                    LatestAttendanceFragment.day.setText(date);
+                    LatestAttendanceFragment.course.setText(course);
+                }
+                /*
+                for (DataSnapshot questionSnapshot : snapshot.getChildren()) {
                     for (DataSnapshot propertySnapshot : questionSnapshot.getChildren()) {
                         String room = propertySnapshot.getKey();
                         String hour = (String) propertySnapshot.getValue();
-                        String ans1 = questionSnapshot.child("ans1").getValue(String.class);
                         LatestAttendanceFragment.room.setText(room);
                         LatestAttendanceFragment.date.setText(hour);
                     }
                 }
+                 */
             }
 
             @Override
