@@ -20,6 +20,9 @@
             android:name=".professor.MainActivityProfessor"
             android:exported="false" />
         <activity
+            android:name=".schedulemanager.MainActivityScheduleManager"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="true"
             android:label="@string/app_name"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".professor.MainActivityProfessor">
+    tools:context=".schedulemanager.MainActivityScheduleManager">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         android:theme="@style/Theme.MyApplication.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/professor_toolbar"
+            android:id="@+id/sm_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -20,6 +20,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/professor_content_main" />
+    <include layout="@layout/sm_content_main" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

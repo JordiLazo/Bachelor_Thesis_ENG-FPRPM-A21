@@ -2,31 +2,31 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/professor_mobile_navigation"
-    app:startDestination="@+id/professor_nav_scanqr">
+    android:id="@+id/sm_mobile_navigation"
+    app:startDestination="@+id/sm_nav_scanqr">
 
     <fragment
-        android:id="@+id/professor_nav_scanqr"
-        android:name="com.example.myapplication.professor.ui.currentattendance.CurrentAttendanceFragment"
+        android:id="@+id/sm_nav_scanqr"
+        android:name="com.example.myapplication.schedulemanager.ui.checkroom.CheckRoomFragment"
         android:label="@string/menu_5"
-        tools:layout="@layout/professor_fragment_live_attendance" />
+        tools:layout="@layout/sm_fragment_check_room" />
     <fragment
-        android:id="@+id/professor_nav_history"
-        android:name="com.example.myapplication.professor.ui.history.HistoryFragment"
+        android:id="@+id/sm_nav_history"
+        android:name="com.example.myapplication.schedulemanager.ui.history.HistoryFragment"
         android:label="@string/menu_2"
-        tools:layout="@layout/professor_fragment_history" >
+        tools:layout="@layout/sm_fragment_history" >
         <action
             android:id="@+id/action_nav_history_to_history_course"
             app:destination="@id/history_course" />
     </fragment>
     <fragment
-        android:id="@+id/student_nav_settings"
+        android:id="@+id/sm_nav_settings"
         android:name="com.example.myapplication.student.ui.settings.SettingsFragment"
         android:label="@string/menu_3"
         tools:layout="@layout/student_fragment_settings" />
     <fragment
         android:id="@+id/history_course"
-        android:name="com.example.myapplication.professor.ui.historycourses.HistoryCourses"
+        android:name="com.example.myapplication.schedulemanager.ui.historycourses.HistoryCourses"
         android:label="fragment_history_course"
-        tools:layout="@layout/professor_fragment_history_course" />
+        tools:layout="@layout/sm_fragment_history_course" />
 </navigation>

@@ -44,7 +44,7 @@ public class MainActivityStudent extends AppCompatActivity {
         this.binding = StudentActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setSupportActionBar(binding.studentAppBarMain.toolbar);
+        setSupportActionBar(binding.studentAppBarMain.studentToolbar);
 
         DrawerLayout drawer = binding.studentDrawerLayout;
         NavigationView navigationView = binding.studentNavView;
@@ -95,7 +95,7 @@ public class MainActivityStudent extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    public void logout(MenuItem item) {
+    public void studentlogout(MenuItem item) {
         startActivity(new Intent(MainActivityStudent.this, LoginActivity.class));
         databaseReference.child("students").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

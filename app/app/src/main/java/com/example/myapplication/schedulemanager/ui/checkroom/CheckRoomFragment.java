@@ -1,20 +1,21 @@
-package com.example.myapplication.professor.ui.currentattendance;
+package com.example.myapplication.schedulemanager.ui.checkroom;
 
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
-import com.example.myapplication.databinding.ProfessorFragmentLiveAttendanceBinding;
+import com.example.myapplication.databinding.SmFragmentCheckRoomBinding;
 import com.example.myapplication.professor.model.CurrentProfessor;
+import com.example.myapplication.student.model.CurrentStudent;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -29,51 +30,45 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class CurrentAttendanceFragment extends Fragment {
+public class CheckRoomFragment extends Fragment {
 
-    private ProfessorFragmentLiveAttendanceBinding binding;
-    private CurrentAttendanceViewModel currentAttendanceViewModel;
+    private SmFragmentCheckRoomBinding binding;
     private PieChart pieChart;
-    private static TextView textProfessorCourse;
     private DatabaseReference dataBase;
+    private ArrayList<String> arrayList;
+    private ArrayAdapter<String> adapter;
+    private Spinner spinner;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        currentAttendanceViewModel = new ViewModelProvider(this).get(CurrentAttendanceViewModel.class);
-        binding = ProfessorFragmentLiveAttendanceBinding.inflate(inflater,container,false);
+        binding = SmFragmentCheckRoomBinding.inflate(inflater,container,false);
         View root = binding.getRoot();
-        this.pieChart = root.findViewById(R.id.professor_piechart);
-        this.textProfessorCourse = root.findViewById(R.id.professor_course);
+        this.pieChart = root.findViewById(R.id.sm_piechart);
+        this.spinner = root.findViewById(R.id.sm_spinnercourse);
+        this.arrayList = new ArrayList<>();
         this.dataBase = FirebaseDatabase.getInstance("https://eng-fprpm-a21-82b48-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
-
-        loadNameCourse();
-        binding.professorActionShowGraph.setOnClickListener(new View.OnClickListener() {
+        showDataSpinner(root);
+        binding.smActionShowGraph.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setupPieChart();
-                loadPieChartData();
+            String item = spinner.getSelectedItem().toString();
+            //setupPieChart();
+            loadPieChartData(item);
             }
         });
 
         return root;
-    }
+}
 
-    private void setupPieChart() {
-        pieChart.setDrawHoleEnabled(true);
-        pieChart.setEntryLabelTextSize(12);
-        pieChart.setEntryLabelColor(Color.BLACK);
-        pieChart.setCenterTextSize(24);
-        pieChart.getDescription().setEnabled(false);
-    }
-
-    private void loadPieChartData() {
-        dataBase.child("courses").child(CurrentProfessor.getCurrentProfessorCourse()).addListenerForSingleValueEvent(new ValueEventListener() {
+    private void loadPieChartData(String item) {
+        dataBase.child("classroom").child(item).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String activeUsers = snapshot.child("activeUsers").getValue(String.class);
-                String enrolledStudents = snapshot.child("enrolledStudents").getValue(String.class);
-
+                String enrolledStudents = snapshot.child("capacity").getValue(String.class);
                 float users = Float.parseFloat(activeUsers);
                 float enrolled = Float.parseFloat(enrolledStudents);
 
@@ -97,7 +92,7 @@ public class CurrentAttendanceFragment extends Fragment {
                     colors.add(color);
                 }
 
-                PieDataSet dataSet = new PieDataSet(entries,"Expense category");
+                PieDataSet dataSet = new PieDataSet(entries,"Test");
                 dataSet.setColors(colors);
 
                 PieData data = new PieData(dataSet);
@@ -115,6 +110,15 @@ public class CurrentAttendanceFragment extends Fragment {
                 pieChart.setData(data);
                 pieChart.invalidate();
                 pieChart.animateY(1400, Easing.EaseInOutQuad);
+                pieChart.setDrawHoleEnabled(true);
+                pieChart.setEntryLabelTextSize(12);
+                pieChart.setEntryLabelColor(Color.BLACK);
+                pieChart.setCenterTextSize(24);
+                pieChart.getDescription().setEnabled(false);
+                //String activeUsers = snapshot.child("activeUsers").getValue(String.class);
+                //String enrolledStudents = snapshot.child("capacity").getValue(String.class);
+
+
             }
 
             @Override
@@ -124,13 +128,15 @@ public class CurrentAttendanceFragment extends Fragment {
         });
     }
 
-    private void loadNameCourse() {
-        dataBase.child("professors").child(CurrentProfessor.getCurrentViaID()).child("courseID").addListenerForSingleValueEvent(new ValueEventListener() {
+    private void showDataSpinner(View root) {
+        adapter = new ArrayAdapter<>(root.getContext(),R.layout.style_spinner,arrayList);
+        dataBase.child("classroom").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String course = (String) snapshot.getValue();
-                textProfessorCourse.setText(course);
-                CurrentProfessor.setCurrentProfessorCourse(course);
+                for(DataSnapshot item: snapshot.getChildren()){
+                    arrayList.add(item.getKey());
+                }
+                spinner.setAdapter(adapter);
             }
 
             @Override
@@ -139,4 +145,5 @@ public class CurrentAttendanceFragment extends Fragment {
             }
         });
     }
+
 }

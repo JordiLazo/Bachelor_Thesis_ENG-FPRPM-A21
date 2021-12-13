@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".professor.ui.currentattendance.CurrentAttendanceFragment">
+
+    <TextView
+        android:id="@+id/professor_lectureID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LECTURE ID"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="50dp"/>
+
+    <TextView
+        android:id="@+id/professor_course"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="75dp"/>
+
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/professor_piechart"
+        android:layout_width="match_parent"
+        android:layout_height="@+id/professor_action_show_graph"
+        app:layout_constraintBottom_toTopOf="@+id/professor_action_show_graph"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/professor_course" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/professor_action_show_graph"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CHECK REAL ATTENDANCE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="50dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,10 +21,8 @@ public class ScanqrFragment extends Fragment {
     private StudentFragmentScanqrBinding binding;
     public static TextView textView;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        scanqrViewModel =
-                new ViewModelProvider(this).get(ScanqrViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        scanqrViewModel = new ViewModelProvider(this).get(ScanqrViewModel.class);
 
         binding = StudentFragmentScanqrBinding.inflate(inflater, container, false);
         View root = binding.getRoot();

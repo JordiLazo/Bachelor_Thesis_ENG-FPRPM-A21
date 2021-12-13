@@ -7,7 +7,7 @@
     tools:context=".student.ui.scanqr.ScanqrFragment">
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/action_scan_qr"
+        android:id="@+id/actionScanQr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="SCAN QR"
@@ -25,6 +25,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/action_scan_qr" />
+        app:layout_constraintTop_toBottomOf="@+id/actionScanQr" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

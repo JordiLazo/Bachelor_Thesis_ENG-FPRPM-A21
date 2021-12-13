@@ -65,4 +65,7 @@ dependencies {
     //QR Code + Camera
     implementation 'me.dm7.barcodescanner:zxing:1.9.13'
     implementation 'com.karumi:dexter:6.2.3'
+
+    //PieChart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }

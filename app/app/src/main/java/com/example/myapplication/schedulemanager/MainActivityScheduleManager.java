@@ -1,4 +1,4 @@
-package com.example.myapplication.professor;
+package com.example.myapplication.schedulemanager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,9 +17,10 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.myapplication.LoginActivity;
 import com.example.myapplication.R;
-import com.example.myapplication.databinding.ProfessorActivityMainBinding;
-import com.example.myapplication.professor.model.CurrentProfessor;
-import com.example.myapplication.professor.model.Professor;
+import com.example.myapplication.databinding.SmActivityMainBinding;
+import com.example.myapplication.schedulemanager.model.CurrentScheduleManager;
+import com.example.myapplication.schedulemanager.model.ScheduleManager;
+import com.example.myapplication.student.model.CurrentStudent;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,40 +28,39 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MainActivityProfessor extends AppCompatActivity {
+public class MainActivityScheduleManager extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private ProfessorActivityMainBinding binding;
-    private TextView textProfessor;
+    private SmActivityMainBinding binding;
+    private TextView textStudent;
     private View headerView;
-    private Professor professorOnline;
+    private ScheduleManager scheduleManagerOnline;
     private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.binding = ProfessorActivityMainBinding.inflate(getLayoutInflater());
+        this.binding = SmActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setSupportActionBar(binding.professorAppBarMain.professorToolbar);
+        setSupportActionBar(binding.smAppBarMain.smToolbar);
 
-        DrawerLayout drawer = binding.professorDrawerLayout;
-        NavigationView navigationView = binding.professorNavView;
+        DrawerLayout drawer = binding.smDrawerLayout;
+        NavigationView navigationView = binding.smNavView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.professor_nav_scanqr, R.id.professor_nav_history, R.id.student_nav_settings,R.id.student_nav_logout)
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.sm_nav_scanqr,R.id.sm_nav_history, R.id.sm_nav_settings,R.id.sm_nav_logout)
                 .setOpenableLayout(drawer)
                 .build();
         //navigationView.findViewById(R.id.)
-        NavController navController = Navigation.findNavController(this, R.id.professor_nav_host_fragment_content_main);
+        NavController navController = Navigation.findNavController(this, R.id.sm_nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
         this.headerView = navigationView.getHeaderView(0);
-        this.textProfessor = headerView.findViewById(R.id.professor_viaidView);
+        this.textStudent = headerView.findViewById(R.id.sm_viaidView);
         this.databaseReference = FirebaseDatabase.getInstance("https://eng-fprpm-a21-82b48-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
-        this.textProfessor.setText(CurrentProfessor.getCurrentViaID());
 
         /*databaseReference.child("students").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -77,6 +77,7 @@ public class MainActivityProfessor extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });*/
+        textStudent.setText(CurrentStudent.getCurrentViaID());
     }
 
     @Override
@@ -88,21 +89,21 @@ public class MainActivityProfessor extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.professor_nav_host_fragment_content_main);
+        NavController navController = Navigation.findNavController(this, R.id.sm_nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
 
-    public void professorlogout(MenuItem item) {
-        startActivity(new Intent(MainActivityProfessor.this, LoginActivity.class));
-        databaseReference.child("professors").addListenerForSingleValueEvent(new ValueEventListener() {
+    public void smlogout(MenuItem item) {
+        startActivity(new Intent(MainActivityScheduleManager.this, LoginActivity.class));
+        databaseReference.child("scheduleManager").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot s: snapshot.getChildren()){
-                    String currentUser = CurrentProfessor.getCurrentViaID();
-                    professorOnline = s.getValue(Professor.class);
-                    if(currentUser.equals(professorOnline.getViaID())){
-                        databaseReference.child("professors").child(currentUser).child("status").setValue("offline");
+                    String currentUser = CurrentScheduleManager.getCurrentViaID();
+                    scheduleManagerOnline = s.getValue(ScheduleManager.class);
+                    if(currentUser.equals(scheduleManagerOnline.getViaID())){
+                        databaseReference.child("scheduleManager").child(currentUser).child("status").setValue("offline");
                     }
                 }
             }

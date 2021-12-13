@@ -2,49 +2,49 @@
     "313313":{
         "viaID": "313313",
         "password": "jordilazo",
-        "courses": ["IT-SDJ2","IT-IDX1","ENG-SPRPM","ENG-FPRPM"],
+        "courses": ["IT-SDJ2","IT-IDX1","IT-GMD1","IT-DIM1","ENG-FPRPM"],
         "attendance":[],
         "status":"offline"
             },
     "311111":{
         "viaID": "311111",
         "password": "jordi",
-        "courses": ["IT-ERP1","IT-PCL1","IT-CMC1","IT-SWE1"],
+        "courses": ["IT-SDJ2","IT-IDX1","IT-GMD1","IT-DIM1","ENG-FPRPM"],
         "attendance":[],
         "status":"offline"
             },
     "311112":{
         "viaID": "311112",
         "password": "casa",
-        "courses": ["IT-MIX1","IT-DNP1","IT-RTP1","IT-BEL1"],
+        "courses": ["IT-SDJ2","IT-IDX1","IT-GMD1","IT-DIM1","ENG-FPRPM"],
         "attendance":[],
         "status":"offline"
             },
     "313296":{
         "viaID": "313296",
         "password": "hjem",
-        "courses": ["IT-WEE1","IT-PME1","IT-DAI1","IT-BUI1"],
+        "courses": ["IT-SDJ2","IT-IDX1","IT-GMD1","IT-DIM1","ENG-FPRPM"],
         "attendance":[],
         "status":"offline"
             },
     "313000":{
         "viaID": "313000",
         "password": "mother",
-        "courses": ["IT-NSQ1","IT-MAL1","IT-AND1","IT-SWA1"],
+        "courses": ["IT-SDJ2","IT-IDX1","IT-GMD1","IT-DIM1","ENG-FPRPM"],
         "attendance":[],
         "status":"offline"
             },
     "399000":{
         "viaID": "399000",
         "password": "mother",
-        "courses": ["IT-RWD1","IT-IDX1","IT-GMD1","IT-DIM1"],
+        "courses": ["IT-SDJ2","IT-IDX1","IT-GMD1","IT-DIM1","ENG-FPRPM"],
         "attendance":[],
         "status":"offline"
             },
     "333000":{
         "viaID": "333000",
         "password": "mother",
-        "courses": ["IT-SDJ2","IT-IDX1","ENG-SPRPM","ENG-FPRPM"],
+        "courses": ["IT-SDJ2","IT-IDX1","IT-GMD1","IT-DIM1","ENG-FPRPM"],
         "attendance":[],
         "status":"offline"
             }
@@ -59,8 +59,29 @@
     "LEOS":{
         "viaID": "LEOS",
         "password": "tars",
-        "courseID":"IT-SDJ2",
-        "classroomID":"C0507",
+        "courseID":"IT-IDX1",
+        "classroomID":"A0201",
+        "status":"offline"
+    },
+    "TRO":{
+        "viaID": "TRO",
+        "password": "tars",
+        "courseID":"IT-DIM1",
+        "classroomID":"B0421",
+        "status":"offline"
+    },
+    "JMO":{
+        "viaID": "JMO",
+        "password": "tars",
+        "courseID":"ENG-FPRPM",
+        "classroomID":"C0509",
+        "status":"offline"
+    },
+    "MMO":{
+        "viaID": "MMO",
+        "password": "tars",
+        "courseID":"IT-GMD1",
+        "classroomID":"A0101",
         "status":"offline"
     }
 },"classroom":{
@@ -68,61 +89,90 @@
         "classroomID": "C0507",
         "capacity": "50",
         "professorID": "POV",
-        "courseID":"IT-SDJ2"
+        "courseID":"IT-SDJ2",
+        "activeUsers":"0"
     },
 
     "A0201":{
-        "classroomID": "A02.01",
+        "classroomID": "A0201",
         "capacity": "25",
-        "professorID": "POV",
-        "courseID":"IT-FPR2"
+        "professorID": "LEOS",
+        "courseID":"IT-IDX1",
+        "activeUsers":"0"
     },
 
-    "B0311":{
-        "classroomID": "B03.11",
+    "B0421":{
+        "classroomID": "B0421",
         "capacity": "30",
-        "professorID": "LEOS",
-        "courseID":"GBE-ENGUP-1"
+        "professorID": "TRO",
+        "courseID":"IT-DIM1",
+        "activeUsers":"0"
+    },
+
+    "C0509":{
+        "classroomID": "C0509",
+        "capacity": "30",
+        "professorID": "JMO",
+        "courseID":"ENG-FPRPM",
+        "activeUsers":"0"
+    },
+
+    "A0101":{
+        "classroomID": "A0101",
+        "capacity": "30",
+        "professorID": "MMO",
+        "courseID":"IT-GMD1",
+        "activeUsers":"0"
     }
 },"courses":{
     "IT-SDJ2":{
         "courseID":"IT-SDJ2",
-        "professorID": "313222",
+        "professorID": "POV",
         "enrolledStudents": "50",
-        "classroomID":"C0507"
+        "classroomID":"C0507",
+        "activeUsers":"0"
     },
 
     "IT-IDX1":{
         "courseID":"IT-IDX1",
-        "professorID": "313222",
+        "professorID": "LEOS",
         "enrolledStudents": "40",
-        "classroomID":"A0201"
+        "classroomID":"A0201",
+        "activeUsers":"0"
     },
 
     "ENG-FPRPM":{
         "courseID":"ENG-FPRPM",
-        "professorID": "313222",
+        "professorID": "JMO",
         "enrolledStudents": "30",
-        "classroomID":"B0311"
+        "classroomID":"C0509",
+        "activeUsers":"0"
     },
 
     "IT-GMD1":{
         "courseID":"IT-GMD1",
-        "professorID": "313222",
+        "professorID": "MMO",
         "enrolledStudents": "70",
-        "classroomID":"B0311"
+        "classroomID":"A0101",
+        "activeUsers":"0"
     },
 
     "IT-DIM1":{
         "courseID":"IT-DIM1",
-        "professorID": "313222",
+        "professorID": "TRO",
         "enrolledStudents": "80",
-        "classroomID":"C0507"
+        "classroomID":"B0421",
+        "activeUsers":"0"
     }
 },"scheduleManager":{
     "GIBA":{
         "viaID": "GIBA",
-        "password":"threshold",
+        "password":"queen",
+        "status": "offline"
+    },
+    "GITA":{
+        "viaID": "GITA",
+        "password":"queen2",
         "status": "offline"
     }
 }

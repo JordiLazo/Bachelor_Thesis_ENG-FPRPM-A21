@@ -37,9 +37,9 @@ public class LatestAttendanceFragment extends Fragment {
         binding = StudentFragmentLatestattendanceBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        room = root.findViewById(R.id.room_data);
-        day = root.findViewById(R.id.day_data);
-        course = root.findViewById(R.id.course_data);
+        this.room = root.findViewById(R.id.room_data);
+        this.day = root.findViewById(R.id.day_data);
+        this.course = root.findViewById(R.id.course_data);
 
         dataBase.child("students").child(currentviaID).child("attendance").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

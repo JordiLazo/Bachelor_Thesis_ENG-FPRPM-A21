@@ -22,7 +22,7 @@
             android:title="@string/menu_3" />
         <item
             android:id="@+id/student_nav_logout"
-            android:onClick="logout"
+            android:onClick="studentlogout"
             android:icon="@drawable/ic_logout"
             android:title="@string/menu_4"/>
     </group>

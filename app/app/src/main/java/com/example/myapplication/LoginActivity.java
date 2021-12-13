@@ -11,6 +11,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.myapplication.professor.MainActivityProfessor;
+import com.example.myapplication.professor.model.CurrentProfessor;
+import com.example.myapplication.schedulemanager.MainActivityScheduleManager;
+import com.example.myapplication.schedulemanager.model.CurrentScheduleManager;
 import com.example.myapplication.student.MainActivityStudent;
 import com.example.myapplication.student.model.CurrentStudent;
 import com.google.firebase.database.DataSnapshot;
@@ -50,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
                             if (snapshot.hasChild(user_viaid)) {
                                 String getpassword = snapshot.child(user_viaid).child("password").getValue(String.class);
                                 if (getpassword.equals(user_password)) {
-                                    Toast.makeText(getApplication(), "Login successfully\n", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplication(), "Login successfully", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(getApplication(), MainActivityStudent.class));
                                     CurrentStudent.setCurrentViaID(user_viaid);
                                     dataBase.child("students").child(user_viaid).child("status").setValue("online");
@@ -69,9 +72,9 @@ public class LoginActivity extends AppCompatActivity {
                             if (snapshot.hasChild(user_viaid)) {
                                 String getpassword = snapshot.child(user_viaid).child("password").getValue(String.class);
                                 if (getpassword.equals(user_password)) {
-                                    Toast.makeText(getApplication(), "Login successfully\n", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplication(), "Login successfully", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(getApplication(), MainActivityProfessor.class));
-                                    CurrentStudent.setCurrentViaID(user_viaid);
+                                    CurrentProfessor.setCurrentViaID(user_viaid);
                                     dataBase.child("professors").child(user_viaid).child("status").setValue("online");
                                     flag =true;
                                 }
@@ -88,9 +91,9 @@ public class LoginActivity extends AppCompatActivity {
                             if (snapshot.hasChild(user_viaid)) {
                                 String getpassword = snapshot.child(user_viaid).child("password").getValue(String.class);
                                 if (getpassword.equals(user_password)) {
-                                    Toast.makeText(getApplication(), "Login successfully\n", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(getApplication(), MainActivityStudent.class));
-                                    CurrentStudent.setCurrentViaID(user_viaid);
+                                    Toast.makeText(getApplication(), "Login successfully", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getApplication(), MainActivityScheduleManager.class));
+                                    CurrentScheduleManager.setCurrentViaID(user_viaid);
                                     dataBase.child("scheduleManager").child(user_viaid).child("status").setValue("online");
                                     flag = true;
                                 }

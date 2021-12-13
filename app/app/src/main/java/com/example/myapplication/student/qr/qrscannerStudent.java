@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.myapplication.student.model.CurrentStudent;
 import com.example.myapplication.student.ui.scanqr.ScanqrFragment;
@@ -46,6 +47,7 @@ public class qrscannerStudent extends AppCompatActivity implements ZXingScannerV
     private static final String ROOM = "room";
     private static final String DATE = "date";
     private static final String HOUR = "hour";
+    public boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,54 +82,110 @@ public class qrscannerStudent extends AppCompatActivity implements ZXingScannerV
 
     }
 
-    @Override
-    public void handleResult(Result rawResult) {
-        String nameRoom = rawResult.getText().toString();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = new Date();
-        String finalDate = dateFormat.format(date);
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-        Date time = new Date();
-        String finalHour = timeFormat.format(time);
-        map1.put(ROOM,nameRoom);
-        map2.put(DATE,finalDate);
-        map3.put(HOUR,finalHour);
-        databaseReference.child("students").child(currentStudent).child("courses").addListenerForSingleValueEvent(new ValueEventListener() {
+    public void updateCounterClassroom(String nameRoom){
+        databaseReference.child("classroom").child(nameRoom).child("activeUsers").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot item: snapshot.getChildren()){
-                    arrayList.add(item.getValue().toString());
-                }
-                int index = (int) (Math.random() * arrayList.size());
-                String randomcourse = arrayList.get(index);
-                map4.put(COURSE,randomcourse);
-                finalmap.putAll(map1);
-                finalmap.putAll(map2);
-                finalmap.putAll(map3);
-                finalmap.putAll(map4);
-                databaseReference.child("students").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        databaseReference.child("students").child(currentStudent).child("attendance").push().setValue(finalmap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                ScanqrFragment.textView.setText("Registered successfully in the classroom");
-                                onBackPressed();
-                            }
-                        });
-                    }
-                    @Override
-                    public void onCancelled (@NonNull DatabaseError error){
-
-                    }
-                });
-
+                String updateCounter = snapshot.getValue(String.class);
+                int x = Integer.parseInt(updateCounter);
+                x += 1;
+                String counter = String.valueOf(x);
+                databaseReference.child("classroom").child(nameRoom).child("activeUsers").setValue(counter);
             }
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
 
+        }
+    });
+    }
+
+    public void updateCounterCourse(String randomCourse){
+        databaseReference.child("courses").child(randomCourse).child("activeUsers").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String updateCounter = snapshot.getValue(String.class);
+                int x = Integer.parseInt(updateCounter);
+                x += 1;
+                String counter = String.valueOf(x);
+                databaseReference.child("courses").child(randomCourse).child("activeUsers").setValue(counter);
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
+    }
+
+    @Override
+    public void handleResult(Result rawResult) {
+        String nameRoom = rawResult.getText();
+        databaseReference.child("classroom").child(nameRoom).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //for(DataSnapshot item: snapshot.getChildren()){
+                    //String classroomID = item.child("classroomID").getValue().toString();
+                if(snapshot.exists()){
+                    flag = true;
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    Date date = new Date();
+                    String finalDate = dateFormat.format(date);
+                    SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+                    Date time = new Date();
+                    String finalHour = timeFormat.format(time);
+                    map1.put(ROOM,nameRoom);
+                    map2.put(DATE,finalDate);
+                    map3.put(HOUR,finalHour);
+                    databaseReference.child("students").child(currentStudent).child("courses").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for(DataSnapshot item: snapshot.getChildren()){
+                                arrayList.add(item.getValue().toString());
+                            }
+                            int index = (int) (Math.random() * arrayList.size());
+                            String randomcourse = arrayList.get(index);
+                            map4.put(COURSE,randomcourse);
+                            finalmap.putAll(map1);
+                            finalmap.putAll(map2);
+                            finalmap.putAll(map3);
+                            finalmap.putAll(map4);
+                            databaseReference.child("students").addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    databaseReference.child("students").child(currentStudent).child("attendance").push().setValue(finalmap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            ScanqrFragment.textView.setText("Registered successfully in the classroom");
+                                            updateCounterClassroom(nameRoom);
+                                            updateCounterCourse(randomcourse);
+                                            onBackPressed();
+                                        }
+                                    });
+                                }
+                                @Override
+                                public void onCancelled (@NonNull DatabaseError error){
+
+                                }
+                            });
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
+                    }else{
+                        onBackPressed();
+                        Toast.makeText(getApplication(), "Error, class not recognized", Toast.LENGTH_SHORT).show();
+                    }
+            //}
+        }
+
+
+    @Override
+    public void onCancelled(@NonNull DatabaseError error) {
+
+    }
+});
 
     }
 
