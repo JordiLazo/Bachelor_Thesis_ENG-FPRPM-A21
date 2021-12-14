@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.StudentFragmentScanqrBinding;
-import com.example.myapplication.student.qr.qrscannerStudent;
+import com.example.myapplication.student.qr.QrScannerActivity;
 
 public class ScanqrFragment extends Fragment {
 
@@ -30,7 +30,7 @@ public class ScanqrFragment extends Fragment {
         binding.actionScanQr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),qrscannerStudent.class);
+                Intent intent = new Intent(getActivity(), QrScannerActivity.class);
                 startActivity(intent);
             }
         });

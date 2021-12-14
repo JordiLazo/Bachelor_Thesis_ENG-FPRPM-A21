@@ -35,7 +35,7 @@ import java.util.Map;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class qrscannerStudent extends AppCompatActivity implements ZXingScannerView.ResultHandler {
+public class QrScannerActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
     private ZXingScannerView scannerView;
     private DatabaseReference databaseReference;
@@ -74,9 +74,9 @@ public class qrscannerStudent extends AppCompatActivity implements ZXingScannerV
 
             @Override
             public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
-                Intent intent = new Intent(qrscannerStudent.this, LoginActivity.class);
+                Intent intent = new Intent(QrScannerActivity.this, LoginActivity.class);
                 startActivity(intent);
-                Toast toast = Toast.makeText(qrscannerStudent.this, "Please grant permission of your camera to use the app", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(QrScannerActivity.this, "Please grant permission of your camera to use the app", Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER,0,0);
                 toast.show();
             }
