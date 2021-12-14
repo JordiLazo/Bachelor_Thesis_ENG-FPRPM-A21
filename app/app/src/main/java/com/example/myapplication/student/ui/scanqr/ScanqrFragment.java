@@ -27,15 +27,44 @@ public class ScanqrFragment extends Fragment {
         binding = StudentFragmentScanqrBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-
-        binding.actionScanQr.setOnClickListener(v -> {
-            startActivity(new Intent(this.getActivity().getApplication(), qrscannerStudent.class));
+        binding.actionScanQr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),qrscannerStudent.class);
+                startActivity(intent);
+            }
         });
+
+        /*binding.actionScanQr.setOnClickListener(v -> {
+            startActivity(new Intent(this.getActivity().getApplication(), qrscannerStudent.class));
+        });*/
 
         textView = root.findViewById(R.id.qrtext);
 
         return root;
     }
+/*
+    private void checkPermissions(String permission, int requestCode ) {
+        if(ContextCompat.checkSelfPermission(getContext(),permission) == PackageManager.PERMISSION_DENIED){
+            requestPermissions(new String[]{permission},requestCode);
+            //ActivityCompat.requestPermissions(,new String[]{permission},requestCode);
+        }else{
+            Toast.makeText(getContext(), "Permission already Granted", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == CAMERA_PERMISSION_CODE){
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Toast.makeText(getContext(), "HOLA", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(getContext(),"PERMISSION DENIED",Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+ */
 
     @Override
     public void onDestroyView() {

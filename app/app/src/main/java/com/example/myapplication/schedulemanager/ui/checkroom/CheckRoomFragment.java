@@ -5,24 +5,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.myapplication.databinding.SmFragmentClassroomAttendanceBinding;
+import com.example.myapplication.schedulemanager.model.CalculateSD;
 import com.example.myapplication.R;
-import com.example.myapplication.databinding.SmFragmentCheckRoomBinding;
-import com.example.myapplication.professor.model.CurrentProfessor;
-import com.example.myapplication.student.model.CurrentStudent;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,12 +29,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class CheckRoomFragment extends Fragment {
 
-    private SmFragmentCheckRoomBinding binding;
+    private SmFragmentClassroomAttendanceBinding binding;
     private PieChart pieChart;
     private DatabaseReference dataBase;
     private ArrayList<String> arrayList;
@@ -44,7 +41,7 @@ public class CheckRoomFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = SmFragmentCheckRoomBinding.inflate(inflater,container,false);
+        binding = SmFragmentClassroomAttendanceBinding.inflate(inflater,container,false);
         View root = binding.getRoot();
         this.pieChart = root.findViewById(R.id.sm_piechart);
         this.spinner = root.findViewById(R.id.sm_spinnercourse);
@@ -55,7 +52,6 @@ public class CheckRoomFragment extends Fragment {
             @Override
             public void onClick(View v) {
             String item = spinner.getSelectedItem().toString();
-            //setupPieChart();
             loadPieChartData(item);
             }
         });
@@ -69,56 +65,49 @@ public class CheckRoomFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String activeUsers = snapshot.child("activeUsers").getValue(String.class);
                 String enrolledStudents = snapshot.child("capacity").getValue(String.class);
-                float users = Float.parseFloat(activeUsers);
-                float enrolled = Float.parseFloat(enrolledStudents);
+                float occupiedSeats = Float.parseFloat(activeUsers);
+                float availableSeats = Float.parseFloat(enrolledStudents);
 
-                int intusers = Integer.parseInt(activeUsers);
-                int intenrolled = Integer.parseInt(enrolledStudents);
+                int intOccupiedSeats = Integer.parseInt(activeUsers);
+                int intAvailableSeats = Integer.parseInt(enrolledStudents);
 
-                float percentatge = (users/enrolled)*100;
-                String showtotal = String.format("%.02f",percentatge);
-
+                float percentatge = (occupiedSeats/availableSeats)*100;
+                String showPercentatge = String.format("%.02f",percentatge);
 
                 ArrayList<PieEntry> entries = new ArrayList<>();
-                entries.add(new PieEntry(intusers,"Online students"));
-                entries.add(new PieEntry(intenrolled,"Enrolled Students"));
+                entries.add(new PieEntry(intOccupiedSeats,"Occupied seats"));
+                entries.add(new PieEntry(intAvailableSeats,"Available seats"));
 
-                ArrayList<Integer> colors = new ArrayList<>();
-                for (int color: ColorTemplate.MATERIAL_COLORS){
-                    colors.add(color);
-                }
+                int[] colors = new int[] {Color.BLACK, Color.GRAY};
 
-                for (int color: ColorTemplate.VORDIPLOM_COLORS){
-                    colors.add(color);
-                }
-
-                PieDataSet dataSet = new PieDataSet(entries,"Test");
+                PieDataSet dataSet = new PieDataSet(entries,"");
                 dataSet.setColors(colors);
 
                 PieData data = new PieData(dataSet);
-                data.setDrawValues(true);
+                //data.setDrawValues(true);
                 //data.setValueFormatter(new PercentFormatter(pieChart));
-                data.setValueTextSize(12f);
-                data.setValueTextColor(Color.BLACK);
+                data.setValueTextSize(19);
+                data.setValueTextColor(Color.WHITE);
                 data.setValueFormatter(new ValueFormatter() {
                     @Override
                     public String getFormattedValue(float value) {
                         return String.valueOf((int) Math.floor(value));
                     }
                 });
-                pieChart.setCenterText(showtotal);
+                setLegend(pieChart,intAvailableSeats,showPercentatge);
+                pieChart.setCenterText("AVG.\n"+showPercentatge+"%");
                 pieChart.setData(data);
                 pieChart.invalidate();
                 pieChart.animateY(1400, Easing.EaseInOutQuad);
                 pieChart.setDrawHoleEnabled(true);
-                pieChart.setEntryLabelTextSize(12);
-                pieChart.setEntryLabelColor(Color.BLACK);
-                pieChart.setCenterTextSize(24);
+                pieChart.setEntryLabelTextSize(11);
+                pieChart.setCenterTextSize(22);
                 pieChart.getDescription().setEnabled(false);
+                pieChart.setEntryLabelColor(Color.BLACK);
+                pieChart.setHoleRadius(75);
+                pieChart.setDrawSliceText(false);
                 //String activeUsers = snapshot.child("activeUsers").getValue(String.class);
                 //String enrolledStudents = snapshot.child("capacity").getValue(String.class);
-
-
             }
 
             @Override
@@ -126,6 +115,21 @@ public class CheckRoomFragment extends Fragment {
 
             }
         });
+    }
+
+    public void setLegend(PieChart pieChart, int availableSeats, String percentatge){
+        Legend legend = pieChart.getLegend();
+        LegendEntry[] test = new LegendEntry[3];
+        String[] legendNames = {"Avg. of occupied seats: "+percentatge,"Available seats: "+availableSeats,"Deviation within the period: "+ CalculateSD.calculateSD()};
+        for(int i = 0; i < test.length;i++){
+            LegendEntry entry = new LegendEntry();
+            entry.label = legendNames[i];
+            test[i] = entry;
+        }
+        legend.setTextSize(15);
+        legend.setCustom(test);
+        legend.setWordWrapEnabled(true);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
     }
 
     private void showDataSpinner(View root) {

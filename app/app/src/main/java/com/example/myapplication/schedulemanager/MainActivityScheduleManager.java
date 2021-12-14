@@ -20,7 +20,6 @@ import com.example.myapplication.R;
 import com.example.myapplication.databinding.SmActivityMainBinding;
 import com.example.myapplication.schedulemanager.model.CurrentScheduleManager;
 import com.example.myapplication.schedulemanager.model.ScheduleManager;
-import com.example.myapplication.student.model.CurrentStudent;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,7 +31,7 @@ public class MainActivityScheduleManager extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private SmActivityMainBinding binding;
-    private TextView textStudent;
+    private TextView textSM;
     private View headerView;
     private ScheduleManager scheduleManagerOnline;
     private DatabaseReference databaseReference;
@@ -40,50 +39,26 @@ public class MainActivityScheduleManager extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         this.binding = SmActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         setSupportActionBar(binding.smAppBarMain.smToolbar);
-
         DrawerLayout drawer = binding.smDrawerLayout;
         NavigationView navigationView = binding.smNavView;
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.sm_nav_scanqr,R.id.sm_nav_history, R.id.sm_nav_settings,R.id.sm_nav_logout)
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.sm_nav_classroom_attendance,R.id.sm_nav_history, R.id.sm_nav_settings,R.id.sm_nav_logout)
                 .setOpenableLayout(drawer)
                 .build();
-        //navigationView.findViewById(R.id.)
         NavController navController = Navigation.findNavController(this, R.id.sm_nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
         this.headerView = navigationView.getHeaderView(0);
-        this.textStudent = headerView.findViewById(R.id.sm_viaidView);
+        this.textSM = headerView.findViewById(R.id.sm_viaidView);
         this.databaseReference = FirebaseDatabase.getInstance("https://eng-fprpm-a21-82b48-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
-
-        /*databaseReference.child("students").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot s: snapshot.getChildren()){
-                    studentOnline = s.getValue(Student.class);
-                    if(studentOnline.getStatus().equals("online")){
-                        textStudent.setText(studentOnline.getViaID());
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });*/
-        textStudent.setText(CurrentStudent.getCurrentViaID());
+        textSM.setText(CurrentScheduleManager.getCurrentViaID());
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 

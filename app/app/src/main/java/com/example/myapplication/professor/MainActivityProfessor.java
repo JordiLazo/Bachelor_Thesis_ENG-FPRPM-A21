@@ -39,17 +39,14 @@ public class MainActivityProfessor extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         this.binding = ProfessorActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         setSupportActionBar(binding.professorAppBarMain.professorToolbar);
-
         DrawerLayout drawer = binding.professorDrawerLayout;
         NavigationView navigationView = binding.professorNavView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.professor_nav_scanqr, R.id.professor_nav_history, R.id.student_nav_settings,R.id.student_nav_logout)
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.professor_nav_check_current_attendance, R.id.professor_nav_history, R.id.professor_nav_settings,R.id.professor_nav_logout)
                 .setOpenableLayout(drawer)
                 .build();
         //navigationView.findViewById(R.id.)
@@ -81,8 +78,6 @@ public class MainActivityProfessor extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 

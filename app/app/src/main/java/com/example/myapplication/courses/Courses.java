@@ -1,4 +1,4 @@
-package com.example.myapplication.Courses;
+package com.example.myapplication.courses;
 
 public class Courses {
 

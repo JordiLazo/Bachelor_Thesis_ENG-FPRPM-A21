@@ -4,9 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.widget.Toast;
 
+import com.example.myapplication.LoginActivity;
 import com.example.myapplication.student.model.CurrentStudent;
 import com.example.myapplication.student.ui.scanqr.ScanqrFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -71,7 +74,11 @@ public class qrscannerStudent extends AppCompatActivity implements ZXingScannerV
 
             @Override
             public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
-
+                Intent intent = new Intent(qrscannerStudent.this, LoginActivity.class);
+                startActivity(intent);
+                Toast toast = Toast.makeText(qrscannerStudent.this, "Please grant permission of your camera to use the app", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER,0,0);
+                toast.show();
             }
 
             @Override
@@ -123,8 +130,8 @@ public class qrscannerStudent extends AppCompatActivity implements ZXingScannerV
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //for(DataSnapshot item: snapshot.getChildren()){
-                    //String classroomID = item.child("classroomID").getValue().toString();
-                if(snapshot.exists()){
+                //String classroomID = item.child("classroomID").getValue().toString();
+                if (snapshot.exists()) {
                     flag = true;
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                     Date date = new Date();
@@ -132,18 +139,18 @@ public class qrscannerStudent extends AppCompatActivity implements ZXingScannerV
                     SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
                     Date time = new Date();
                     String finalHour = timeFormat.format(time);
-                    map1.put(ROOM,nameRoom);
-                    map2.put(DATE,finalDate);
-                    map3.put(HOUR,finalHour);
+                    map1.put(ROOM, nameRoom);
+                    map2.put(DATE, finalDate);
+                    map3.put(HOUR, finalHour);
                     databaseReference.child("students").child(currentStudent).child("courses").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for(DataSnapshot item: snapshot.getChildren()){
+                            for (DataSnapshot item : snapshot.getChildren()) {
                                 arrayList.add(item.getValue().toString());
                             }
                             int index = (int) (Math.random() * arrayList.size());
                             String randomcourse = arrayList.get(index);
-                            map4.put(COURSE,randomcourse);
+                            map4.put(COURSE, randomcourse);
                             finalmap.putAll(map1);
                             finalmap.putAll(map2);
                             finalmap.putAll(map3);
@@ -154,7 +161,7 @@ public class qrscannerStudent extends AppCompatActivity implements ZXingScannerV
                                     databaseReference.child("students").child(currentStudent).child("attendance").push().setValue(finalmap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
-                                            ScanqrFragment.textView.setText("Registered successfully in the classroom");
+                                            ScanqrFragment.textView.setText("Registry successful.\n You are now successfully logged in for the lecture:\n"+ randomcourse);
                                             updateCounterClassroom(nameRoom);
                                             updateCounterCourse(randomcourse);
                                             onBackPressed();
@@ -162,31 +169,27 @@ public class qrscannerStudent extends AppCompatActivity implements ZXingScannerV
                                     });
                                 }
                                 @Override
-                                public void onCancelled (@NonNull DatabaseError error){
+                                public void onCancelled(@NonNull DatabaseError error) {
 
                                 }
                             });
-
                         }
-
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
                         }
                     });
-                    }else{
-                        onBackPressed();
-                        Toast.makeText(getApplication(), "Error, class not recognized", Toast.LENGTH_SHORT).show();
-                    }
-            //}
-        }
+                } else {
+                    Toast toast = Toast.makeText(getApplication(), "Registry failed.\nUnknown classroom", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.show();
+                    onBackPressed();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-
-    @Override
-    public void onCancelled(@NonNull DatabaseError error) {
-
-    }
-});
-
+            }
+        });
     }
 
     @Override

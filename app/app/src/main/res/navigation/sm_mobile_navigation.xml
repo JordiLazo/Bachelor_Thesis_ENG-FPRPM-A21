@@ -3,30 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sm_mobile_navigation"
-    app:startDestination="@+id/sm_nav_scanqr">
+    app:startDestination="@+id/sm_nav_classroom_attendance">
 
     <fragment
-        android:id="@+id/sm_nav_scanqr"
+        android:id="@+id/sm_nav_classroom_attendance"
         android:name="com.example.myapplication.schedulemanager.ui.checkroom.CheckRoomFragment"
         android:label="@string/menu_5"
-        tools:layout="@layout/sm_fragment_check_room" />
+        tools:layout="@layout/sm_fragment_classroom_attendance"/>
     <fragment
         android:id="@+id/sm_nav_history"
-        android:name="com.example.myapplication.schedulemanager.ui.history.HistoryFragment"
+        android:name="com.example.myapplication.schedulemanager.ui.history.HistoryFragmentSm"
         android:label="@string/menu_2"
         tools:layout="@layout/sm_fragment_history" >
         <action
-            android:id="@+id/action_nav_history_to_history_course"
-            app:destination="@id/history_course" />
+            android:id="@+id/action_nav_history_to_history_classroom"
+            app:destination="@id/sm_history_classroom" />
     </fragment>
     <fragment
         android:id="@+id/sm_nav_settings"
         android:name="com.example.myapplication.student.ui.settings.SettingsFragment"
         android:label="@string/menu_3"
-        tools:layout="@layout/student_fragment_settings" />
+        tools:layout="@layout/sm_fragment_settings" />
     <fragment
-        android:id="@+id/history_course"
-        android:name="com.example.myapplication.schedulemanager.ui.historycourses.HistoryCourses"
-        android:label="fragment_history_course"
-        tools:layout="@layout/sm_fragment_history_course" />
+        android:id="@+id/sm_history_classroom"
+        android:name="com.example.myapplication.schedulemanager.ui.historyclassroom.HistoryClassroom"
+        android:label="History classroom"
+        tools:layout="@layout/sm_fragment_history_classroom" />
 </navigation>

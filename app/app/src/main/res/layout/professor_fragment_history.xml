@@ -5,87 +5,101 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    tools:context=".professor.ui.history.HistoryFragment">
+    tools:context=".professor.ui.history.HistoryFragmentProfessor">
 
     <TextView
-        android:id="@+id/course"
+        android:id="@+id/professor_course_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="80dp"
-        app:autoSizeTextType="uniform"
-        android:text="Courses:"
+        android:layout_marginRight="100dp"
+        android:layout_marginLeft="100dp"
+        android:text="@string/lectureID"
+        android:textSize="@dimen/title"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/spinnercourse"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.078" />
 
-    <Spinner
-        android:id="@+id/spinnercourse"
+    <TextView
+        android:id="@+id/professor_textview"
+        android:textSize="@dimen/spinnerText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="80dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/course"
-        app:layout_constraintVertical_bias="0.037" />
+        app:layout_constraintTop_toBottomOf="@+id/professor_course_id"
+        app:layout_constraintVertical_bias="0.030" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/boxFrom"
+    <TextView
+        android:text="@string/period"
+        android:textSize="@dimen/subtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginTop="-400dp"
+        android:textAlignment="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        app:layout_constraintBottom_toTopOf="@+id/professor_date_from"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/professor_textview" />
+
+    <EditText
+        android:hint="@string/from"
+        android:id="@+id/professor_date_from"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:layout_marginRight="100dp"
+        android:layout_marginLeft="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnercourse">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="-200dp"
+        android:nextFocusDown="@+id/sm_date_until"
+        android:focusable="true"
+        android:imeOptions="actionNext"
+        />
 
-        <EditText
-            android:id="@+id/dateFrom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="From"
-            android:inputType="date"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/boxUntil"
+    <EditText
+        android:hint="@string/to"
+        android:id="@+id/professor_date_until"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginEnd="80dp"
+        android:inputType="text"
+        android:layout_marginRight="100dp"
+        android:layout_marginLeft="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/professor_date_from"
         android:layout_marginTop="-250dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnercourse">
-
-        <EditText
-            android:id="@+id/dateUntil"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Until"
-            android:inputType="date"/>
-    </com.google.android.material.textfield.TextInputLayout>
+        android:nextFocusDown="@+id/professor_search_button"
+        android:focusable="true"
+        android:imeOptions="actionNext"/>
 
     <Button
-        android:id="@+id/history_button"
-        android:layout_width="match_parent"
+        android:id="@+id/professor_search_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="120dp"
         android:layout_marginEnd="120dp"
-        android:layout_marginTop="50dp"
-        android:text="search"
+        android:layout_marginTop="150dp"
+        android:text="@string/showStatistics"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:focusable="true"
+        android:imeOptions="actionNext"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

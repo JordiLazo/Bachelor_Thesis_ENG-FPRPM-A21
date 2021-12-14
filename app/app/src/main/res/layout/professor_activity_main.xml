@@ -20,6 +20,9 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        android:background="@color/purple_500"
+        app:itemTextColor="@color/white"
+        app:itemIconTint="@color/black"
         app:headerLayout="@layout/professor_nav_header_main"
         app:menu="@menu/professor_activity_main_drawer" />
 </androidx.drawerlayout.widget.DrawerLayout>

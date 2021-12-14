@@ -4,48 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".professor.ui.currentattendance.CurrentAttendanceFragment">
+    tools:context=".schedulemanager.ui.checkroom.CheckRoomFragment">
 
     <TextView
-        android:id="@+id/professor_lectureID"
+        android:id="@+id/sm_lectureID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="LECTURE ID"
+        android:text="@string/roomID"
+        android:textSize="@dimen/title"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         android:textAlignment="center"
+        android:layout_marginRight="100dp"
+        android:layout_marginLeft="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="50dp"/>
+        app:layout_constraintVertical_bias="0.078" />
 
-    <TextView
-        android:id="@+id/professor_course"
+    <Spinner
+        android:id="@+id/sm_spinnercourse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="75dp"/>
-
+        app:layout_constraintTop_toBottomOf="@id/sm_lectureID"
+        app:layout_constraintVertical_bias="0.030" />
 
     <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/professor_piechart"
+        android:id="@+id/sm_piechart"
         android:layout_width="match_parent"
-        android:layout_height="@+id/professor_action_show_graph"
-        app:layout_constraintBottom_toTopOf="@+id/professor_action_show_graph"
+        android:layout_height="@+id/sm_action_show_graph"
+        app:layout_constraintBottom_toTopOf="@+id/sm_action_show_graph"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/professor_course" />
+        app:layout_constraintTop_toBottomOf="@+id/sm_spinnercourse" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/professor_action_show_graph"
-        android:layout_width="match_parent"
+        android:id="@+id/sm_action_show_graph"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CHECK REAL ATTENDANCE"
+        android:text="Check classroom attendance"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginBottom="50dp"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

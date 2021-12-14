@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Students Class Attendance</string>
+    <string name="app_name">Attending VIA</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">VIA ID Student:</string>
@@ -14,8 +14,16 @@
     <string name="menu_2">History</string>
     <string name="menu_3">Settings</string>
     <string name="menu_4">Log out</string>
-    <string name="menu_5">Current attendance</string>
-    <string name="menu_6">Check Room</string>
+    <string name="menu_5">Classroom attendance</string>
+    <string name="menu_6">Check current attendance</string>
+    
+    <string name="period">Period:</string>
+    <string name="from">From...</string>
+    <string name="lectureID">Lecture ID</string>
+    <string name="roomID">Room ID</string>
+    <string name="to">To...</string>
+    <string name="showStatistics">Show statistics</string>
+    <string name="registryLecture">Registry to lecture</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

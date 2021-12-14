@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/student_nav_scanqr"
         android:name="com.example.myapplication.student.ui.scanqr.ScanqrFragment"
-        android:label="@string/menu_0"
+        android:label="@string/registryLecture"
         tools:layout="@layout/student_fragment_scanqr" />
     <fragment
         android:id="@+id/student_nav_latestattendance"
@@ -22,7 +22,7 @@
         tools:layout="@layout/student_fragment_history" >
         <action
             android:id="@+id/action_nav_history_to_history_course"
-            app:destination="@id/history_course" />
+            app:destination="@id/student_history_course" />
     </fragment>
     <fragment
         android:id="@+id/student_nav_settings"
@@ -30,8 +30,8 @@
         android:label="@string/menu_3"
         tools:layout="@layout/student_fragment_settings" />
     <fragment
-        android:id="@+id/history_course"
+        android:id="@+id/student_history_course"
         android:name="com.example.myapplication.student.ui.historycourses.HistoryCourses"
-        android:label="fragment_history_course"
+        android:label="History latest attendances"
         tools:layout="@layout/student_fragment_history_course" />
 </navigation>

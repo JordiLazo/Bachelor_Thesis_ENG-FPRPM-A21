@@ -5,8 +5,8 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/sm_nav_scanqr"
-            android:icon="@drawable/ic_logout"
+            android:id="@+id/sm_nav_classroom_attendance"
+            android:icon="@drawable/ic_classes"
             android:title="@string/menu_5"/>
         <item
             android:id="@+id/sm_nav_history"
@@ -21,5 +21,7 @@
             android:onClick="smlogout"
             android:icon="@drawable/ic_logout"
             android:title="@string/menu_4"/>
+
     </group>
+
 </menu>

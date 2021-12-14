@@ -33,7 +33,6 @@ import java.util.Calendar;
 
 public class HistoryFragment extends Fragment {
 
-    private HistoryViewModel historyViewModel;
     private StudentFragmentHistoryBinding binding;
     private Spinner spinner;
     private DatabaseReference dataBase;
@@ -51,13 +50,13 @@ public class HistoryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.dataBase = FirebaseDatabase.getInstance("https://eng-fprpm-a21-82b48-default-rtdb.europe-west1.firebasedatabase.app/").getReference("students");
         this.arrayList = new ArrayList<>();
-        this.historyViewModel = new ViewModelProvider(this).get(HistoryViewModel.class);
         this.binding = StudentFragmentHistoryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        this.dateFrom = root.findViewById(R.id.dateFrom);
-        this.dateUntil = root.findViewById(R.id.dateUntil);
-        this.spinner = root.findViewById(R.id.spinnercourse);
-        this.button = root.findViewById(R.id.history_button);
+        this.calendar = Calendar.getInstance();
+        this.dateFrom = root.findViewById(R.id.student_date_from);
+        this.dateUntil = root.findViewById(R.id.student_date_until);
+        this.spinner = root.findViewById(R.id.student_spinnercourse);
+        this.button = root.findViewById(R.id.student_search_button);
         showDataSpinner(root);
         showCalendarFrom(root);
         showCalendarUntil(root);
@@ -68,7 +67,6 @@ public class HistoryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         NavController navController = Navigation.findNavController(view);
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,28 +75,7 @@ public class HistoryFragment extends Fragment {
         });
     }
 
-    private void showCalendarUntil(View root) {
-        calendar = Calendar.getInstance();
-        dateUntil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                day = calendar.get(Calendar.DAY_OF_MONTH);
-                month = calendar.get(Calendar.MONTH);
-                year = calendar.get(Calendar.YEAR);
-                dialog = new DatePickerDialog(root.getContext(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month+=1;
-                        dateUntil.setText(dayOfMonth+"/"+month+"/"+year);
-                    }
-                }, year,month,day);
-                dialog.show();
-            }
-        });
-    }
-
     private void showCalendarFrom(View root) {
-        calendar = Calendar.getInstance();
         dateFrom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,6 +87,25 @@ public class HistoryFragment extends Fragment {
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         month+=1;
                         dateFrom.setText(dayOfMonth+"/"+month+"/"+year);
+                    }
+                }, year,month,day);
+                dialog.show();
+            }
+        });
+    }
+
+    private void showCalendarUntil(View root) {
+        dateUntil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                day = calendar.get(Calendar.DAY_OF_MONTH);
+                month = calendar.get(Calendar.MONTH);
+                year = calendar.get(Calendar.YEAR);
+                dialog = new DatePickerDialog(root.getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        month+=1;
+                        dateUntil.setText(dayOfMonth+"/"+month+"/"+year);
                     }
                 }, year,month,day);
                 dialog.show();

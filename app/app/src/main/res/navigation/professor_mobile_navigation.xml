@@ -3,30 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/professor_mobile_navigation"
-    app:startDestination="@+id/professor_nav_scanqr">
+    app:startDestination="@+id/professor_nav_check_current_attendance">
 
     <fragment
-        android:id="@+id/professor_nav_scanqr"
+        android:id="@+id/professor_nav_check_current_attendance"
         android:name="com.example.myapplication.professor.ui.currentattendance.CurrentAttendanceFragment"
-        android:label="@string/menu_5"
-        tools:layout="@layout/professor_fragment_live_attendance" />
+        android:label="@string/menu_6"
+        tools:layout="@layout/professor_fragment_check_current_attendance" />
     <fragment
         android:id="@+id/professor_nav_history"
-        android:name="com.example.myapplication.professor.ui.history.HistoryFragment"
+        android:name="com.example.myapplication.professor.ui.history.HistoryFragmentProfessor"
         android:label="@string/menu_2"
         tools:layout="@layout/professor_fragment_history" >
         <action
             android:id="@+id/action_nav_history_to_history_course"
-            app:destination="@id/history_course" />
+            app:destination="@id/professor_history_course" />
     </fragment>
     <fragment
-        android:id="@+id/student_nav_settings"
-        android:name="com.example.myapplication.student.ui.settings.SettingsFragment"
+        android:id="@+id/professor_nav_settings"
+        android:name="com.example.myapplication.professor.ui.settings.SettingsFragment"
         android:label="@string/menu_3"
-        tools:layout="@layout/student_fragment_settings" />
+        tools:layout="@layout/professor_fragment_settings" />
     <fragment
-        android:id="@+id/history_course"
-        android:name="com.example.myapplication.professor.ui.historycourses.HistoryCourses"
-        android:label="fragment_history_course"
+        android:id="@+id/professor_history_course"
+        android:name="com.example.myapplication.professor.ui.historycourses.HistoryCoursesFragmentProfessor"
+        android:label="History lecture"
         tools:layout="@layout/professor_fragment_history_course" />
 </navigation>
