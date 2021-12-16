@@ -57,7 +57,7 @@ public class CheckRoomFragment extends Fragment {
         });
 
         return root;
-}
+    }
 
     private void loadPieChartData(String item) {
         dataBase.child("classroom").child(item).addListenerForSingleValueEvent(new ValueEventListener() {
